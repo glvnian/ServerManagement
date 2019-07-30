@@ -157,15 +157,11 @@ class taskset():
         elif data['type'] == 'once' :
             if str(data['day']) not in list(str(i) for i in range(1,32)):
                 raise ValueError('日期设定错误,日期数值应在1-31内!')
-            now_time = datetime.datetime.now()
-            tip = 1 
-            while True:
-                next_time = now_time + datetime.timedelta(days=tip)
-                if (str(next_time.year) == str(data['year'])) and (str(next_time.month) == str(data['month'])) and (str(next_time.day) == str(data['day'])):
-                    break
-                else:
-                    tip+=1
-            next_time = now_time + datetime.timedelta(days=tip)
+            next_time = datetime.datetime(year=int(data['year']),
+                month=int(data['month']),day=int(data['day']),
+                hour=int(data['hour']),minute=int(data['mint']),
+                second=int(data['senc']))
+            return (next_time - datetime.datetime.now()).total_seconds()
         else:
             raise ValueError('无法解析下次执行的日期,请检查设定时间格式!')
         #下次执行任务的时间
