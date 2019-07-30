@@ -91,6 +91,8 @@ class taskset():
 
     def CreatTask(self,data,writeToSql=True):
         interval = self.GetNextTaskSenc(data)
+        if interval < 0:
+            return True
         data['nextRunTime'] = time.strftime('%Y-%m-%d %H:%M:%S',time.localtime(time.time()+int(interval)))
         if interval >= self.maxSetTime:
             data['needCheck'] = 'T'
