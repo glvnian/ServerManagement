@@ -155,7 +155,7 @@ def chmod():
     fileName = b64decode_(request.values.get('filename'))
     power = request.values.get('power')
     try:
-        os.chmod(fileName,int(power))
+        os.chmod(fileName,int(power,8))
     except Exception as e:
         return json.dumps({'resultCode':1,'result':str(e)})
     else:
